@@ -185,25 +185,25 @@ function qwc_add_admin_page_config($page_configs)
 
 else:
 
-add_filter('woocommerce_gateway_title', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
-add_filter('woocommerce_gateway_description', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
-add_filter('woocommerce_gateway_icon', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_gateway_title', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_gateway_description', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_gateway_icon', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
 
-add_filter('woocommerce_shipping_methods', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_shipping_methods', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
 
-add_filter('woocommerce_attribute_label', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_attribute_label', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
 
-//add_filter('woocommerce_in_cart_product_title', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
-add_filter('woocommerce_cart_item_name', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
-add_filter('woocommerce_cart_item_thumbnail', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+//add_filter('woocommerce_in_cart_product_title', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_cart_item_name', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_cart_item_thumbnail', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
 
-//add_filter('woocommerce_order_table_product_title', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
-add_filter('woocommerce_order_items_table', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);//object
-add_filter('woocommerce_order_item_name', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+//add_filter('woocommerce_order_table_product_title', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
+add_filter('woocommerce_order_items_table', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);//object
+add_filter('woocommerce_order_item_name', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 0);
 
-add_filter( 'woocommerce_email_get_option', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 20 );
+add_filter( 'woocommerce_email_get_option', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 20 );
 
-add_filter( 'wp_mail_from_name', 'qtrans_useCurrentLanguageIfNotFoundUseDefaultLanguage', 20 );
+add_filter( 'wp_mail_from_name', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 20 );
 
 endif;
 ?>
