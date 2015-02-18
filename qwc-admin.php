@@ -4,11 +4,53 @@ if(!defined('ABSPATH'))exit;
 add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
+
+	{//edit.php?post_type=product&page=product_attributes
+	$page_config = array();
+	$page_config['pages'] = array( 'edit.php' => 'post_type=product&page=product_attributes');
+	$page_config['anchors'] = array( 'col-container'  );
+
+	$page_config['forms'] = array();
+
+	$f = array();
+	//$f['form'] = array( 'id' => 'mainform' );
+
+	$f['fields'] = array();
+	$fields = &$f['fields']; // shorthand
+
+	$fields[] = array( 'id' => 'attribute_label' );
+	//$fields[] = array( 'tag' => 'a', 'container_class' => 'attributes-table', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'td', 'container_id' => 'col-right', 'encode' => 'display'  );
+
+	$page_config['forms'][] = $f;
+	$page_configs[] = $page_config;
+	}
+
+	{//edit-tags.php?taxonomy=pa_product-bg&post_type=product
+	$page_config = array();
+	$page_config['pages'] = array( 'edit-tags.php' => 'post_type=product');
+	//$page_config['anchors'] = array( 'col-container'  );
+
+	$page_config['forms'] = array();
+
+	$f = array();
+	//$f['form'] = array( 'id' => 'mainform' );
+
+	$f['fields'] = array();
+	$fields = &$f['fields']; // shorthand
+
+	$fields[] = array( 'tag' => 'h2', 'container_class' => 'wrap', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'h3', 'container_id' => 'col-left', 'encode' => 'display' );
+	$fields[] = array( 'id' => 'search-submit', 'attr' => 'value', 'encode' => 'display' );
+	$fields[] = array( 'id' => 'submit', 'attr' => 'value', 'encode' => 'display' );
+	//$fields[] = array( 'id' => '' );
+
+	$page_config['forms'][] = $f;
+	$page_configs[] = $page_config;
+	}
+
 	{//tab=tax
 	$page_config = array();
-	//$page_config['pages'] = array('admin.php' => 'page=wc-settings');
-	//$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=tax','admin.php' => 'page=wc-settings&tab=checkout' );
-	//$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=(tax|checkout)');
 	$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=tax');
 	//$page_config['anchors'] = array( 'titlediv'  );
 
@@ -417,9 +459,9 @@ function qwc_add_admin_page_config($page_configs)
 	return $page_configs;
 }
 
-function qwc_email_get_option($value, $wce /* WC_Email object*/, $key=null, $empty_value=null){
-	if(!$key) return $value;
-	return call_user_func( array($wce,'WC_Settings_API::get_option'), $key, $empty_value );
+function qwc_email_get_option($value_translated, $wce /* WC_Email object*/, $value=null, $key=null, $empty_value=null){
+	if(!$value) return $value_translated;//so that older WC versions do not get nasty output.
+	return $value;
 }
 add_filter( 'woocommerce_email_get_option', 'qwc_email_get_option', 0, 4 );
 

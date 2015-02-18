@@ -15,29 +15,19 @@ Enables multilingual framework for plugin "WooCommerce - excelling eCommerce".
 
 This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/).
 
-After the activation, depending on your theme, you may need to do the following additional steps to finalize the configuration.
+After the activation, depending on your theme, you may need to do the following additional step to finalize the configuration:
 
-1) In all customizable template files, replace calls to `bloginfo('xxx')` with `bloginfo('xxx','display')`, if you have any.
-
-2) This plugin enables qTranslate-X's Language Switching Buttons on WooCommerce configuration pages, where it is applicable. Unfortunately, WooCommerce code is not flexible enough to allow all the filters we would need. We are in contact with WooCommerce to resolve the issue. For now, you would need to adjust their code in one line of file `/wp-content/plugins/woocommerce/includes/emails/class-wc-email.php`. Search for the following piece of code
-<pre>
-	public function get_option( $key, $empty_value = null ) {
-		return apply_filters( 'woocommerce_email_get_option', __( parent::get_option( $key, $empty_value ) ), $this );
-	}
-</pre>
-and replace it with
-<pre>
-	public function get_option( $key, $empty_value = null ) {
-		return apply_filters( 'woocommerce_email_get_option', parent::get_option( $key, $empty_value ) );
-	}
-</pre>
-which removes excessive call to translation function `__()`. This affects translation of e-mail templates. If you prefer to send all e-mails in the default language, then you do not need to do the above modification.
+* In all customizable template files, replace calls to `bloginfo('xxx')` with `bloginfo('xxx','display')`, if you have any. You do not have to do this, if title of your blog appears correctly everywhere you can see it (especially in emails sent), or if you do not localize the name of your blog.
 
 This plugin is not supported by the authors on the WordPress forum due to its simplicity. If you find a field which is not translatable, follow the pattern how it is done in the code for other fields and make it translatable. Then submit a pull request at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x) to enable your changes for everyone else.
 
 == Installation ==
 
 Standard, as any other normal plugin hosted at WordPress.
+
+After the activation, depending on your theme, you may need to do the following additional step to finalize the configuration:
+
+* In all customizable template files, replace calls to `bloginfo('xxx')` with `bloginfo('xxx','display')`, if you have any. You do not have to do this, if title of your blog appears correctly everywhere you can see it (especially in emails sent), or if you do not localize the name of your blog.
 
 == Screenshots ==
 
