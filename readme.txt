@@ -3,7 +3,7 @@ Developed by: qTranslate Team
 Contributors: johnclause
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
-Tested up to: 4.1
+Tested up to: 4.1.1
 Stable tag: 1.0
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
@@ -13,7 +13,7 @@ Enables multilingual framework for plugin "WooCommerce - excelling eCommerce".
 
 == Description ==
 
-This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/).
+This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework (version 3.1 or later) for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/) (version 2.3.5 or later).
 
 After the activation, depending on your theme, you may need to do the following additional step to finalize the configuration:
 
