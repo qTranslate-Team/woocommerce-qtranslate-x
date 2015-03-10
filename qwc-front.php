@@ -43,7 +43,7 @@ function qwc_add_filters_front() {
 		'woocommerce_rate_label' => 20,
 
 		/* three-argument filters */
-		//'woocommerce_attribute' => 20,
+		'woocommerce_attribute' => 20,
 		'woocommerce_cart_item_name' => 20,
 		'woocommerce_cart_item_thumbnail' => 20,
 		'woocommerce_order_subtotal_to_display' => 20,
@@ -59,12 +59,13 @@ function qwc_add_filters_front() {
 		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
 	}
 
-	//do not seem to need
+	//below do not seem to need
+
 	//foreach ( $url_filters as $name => $priority ) {
 	//	add_filter( $name, 'qtranxf_convertURL', $priority );
 	//}
 
-	/* Fix the product categories and tags (displayed above the "additional informations" tab) */
+	/* Fix the product categories and tags (displayed above the "additional informations" tab) *
 	add_filter( 'wp_get_object_terms', function ( $terms ) {
 		foreach ( $terms as $term ) {
 			if ( $term->taxonomy == 'product_cat' || $term->taxonomy == 'product_tag' ) {
@@ -75,7 +76,7 @@ function qwc_add_filters_front() {
 		return $terms;
 	} );
 
-	/* Fix the product attributes (displayed in the "additional informations" tab) */
+	/* Fix the product attributes (displayed in the "additional informations" tab) *
 	add_filter( 'woocommerce_attribute', function ( $text ) {
 		$values = explode( ', ', $text );
 		foreach ( $values as $i => $val ) {
@@ -84,5 +85,6 @@ function qwc_add_filters_front() {
 
 		return implode( ', ', $values );
 	} );
+	*/
 }
 qwc_add_filters_front();
