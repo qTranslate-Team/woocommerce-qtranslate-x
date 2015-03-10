@@ -46,7 +46,10 @@ function qwc_add_filters_front() {
 		'woocommerce_attribute' => 20,
 		'woocommerce_cart_item_name' => 20,
 		'woocommerce_cart_item_thumbnail' => 20,
-		'woocommerce_order_subtotal_to_display' => 20
+		'woocommerce_order_subtotal_to_display' => 20,
+
+		/* four-argument filters */
+		'woocommerce_format_content' => 20,//will hopefully be in function wc_format_content in woocommerce/includes/wc-formatting-functions.php
 
 		//not in front
 		//'woocommerce_email_get_option' => 0
@@ -62,5 +65,3 @@ function qwc_add_filters_front() {
 	//}
 }
 qwc_add_filters_front();
-
-?>

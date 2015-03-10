@@ -1,10 +1,10 @@
 === WooCommerce & qTranslate-X ===
 Developed by: qTranslate Team
-Contributors: johnclause
+Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
 Tested up to: 4.1.1
-Stable tag: 1.0
+Stable tag: 1.0.1
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,10 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 No need for Upgrade Notice.
 
 == Changelog ==
+
+= 1.0.1 =
+* Improvement: display of fields of class 'attribute_name' in `post.php` page.
+* Improvement: added filter 'woocommerce_format_content', subject to approval from Woocommerce - was already approved, wait for next release after 2.3.5.
 
 = 1.0 =
 * Initial release

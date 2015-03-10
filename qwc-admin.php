@@ -4,6 +4,29 @@ if(!defined('ABSPATH'))exit;
 add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
+	{//post.php //since 1.0.1
+	$page_config = array();
+	$page_config['pages'] = array( 'post.php' => '');
+	$page_config['anchors'] = array( 'post', 'woocommerce-product-data', 'postexcerpt' );
+
+	$page_config['forms'] = array();
+
+	$f = array();
+	$f['form'] = array( 'id' => 'post' );
+
+	$f['fields'] = array();
+	$fields = &$f['fields']; // shorthand
+
+	//$fields[] = array( 'tag' => 'INPUT', 'class' => 'attribute_name' );//needs more work
+	//$fields[] = array( 'class' => 'attribute_name', 'encode' => 'display' );//catches some twice
+	$fields[] = array( 'tag' => 'TD', 'class' => 'attribute_name', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'STRONG', 'class' => 'attribute_name', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'OPTION', 'encode' => 'display' );
+	//$fields[] = array( 'class' => 'attribute_values', 'encode' => 'display' );
+
+	$page_config['forms'][] = $f;
+	$page_configs[] = $page_config;
+	}
 
 	{//edit.php?post_type=product&page=product_attributes
 	$page_config = array();
@@ -19,8 +42,8 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'attribute_label' );
-	//$fields[] = array( 'tag' => 'a', 'container_class' => 'attributes-table', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'td', 'container_id' => 'col-right', 'encode' => 'display'  );
+	//$fields[] = array( 'tag' => 'A', 'container_class' => 'attributes-table', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'TD', 'container_id' => 'col-right', 'encode' => 'display'  );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -39,8 +62,8 @@ function qwc_add_admin_page_config($page_configs)
 	$f['fields'] = array();
 	$fields = &$f['fields']; // shorthand
 
-	$fields[] = array( 'tag' => 'h2', 'container_class' => 'wrap', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'h3', 'container_id' => 'col-left', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'H2', 'container_class' => 'wrap', 'encode' => 'display' );
+	$fields[] = array( 'tag' => 'H3', 'container_id' => 'col-left', 'encode' => 'display' );
 	$fields[] = array( 'id' => 'search-submit', 'attr' => 'value', 'encode' => 'display' );
 	$fields[] = array( 'id' => 'submit', 'attr' => 'value', 'encode' => 'display' );
 	//$fields[] = array( 'id' => '' );
@@ -465,4 +488,43 @@ function qwc_email_get_option($value_translated, $wce /* WC_Email object*/, $val
 }
 add_filter( 'woocommerce_email_get_option', 'qwc_email_get_option', 0, 4 );
 
-?>
+/**
+ * Since 1.0.1
+ */
+/*
+function qwc_attribute_label($label, $name){
+	//global $q_config;
+	//if(isset($q_config['term_name'][$name])) {
+	//	$label = qtranxf_join_b($q_config['term_name'][$name]);
+	//}
+	//qtranxf_dbg_log('qwc_attribute_label: label="'.$label.'"; name: ',$name);
+	$label = qtranxf_term_name_encoded($label);
+	//qtranxf_dbg_log('qwc_attribute_label: label: ',$label);
+	return $label;
+}
+add_filter( 'woocommerce_attribute_label', 'qwc_attribute_label', 0, 2 );
+*/
+add_filter( 'woocommerce_variation_option_name', 'qtranxf_term_name_encoded', 5);
+
+/*
+// it does the job, but WC javascript breaks it anyway later.
+function qwc_useAdminTermLibJoin($obj, $taxonomies=null, $args=null) {
+	global $pagenow;
+	//qtranxf_dbg_log('qwc_useAdminTermLibJoin: $pagenow='.$pagenow);
+	//qtranxf_dbg_log('qwc_useAdminTermLibJoin: $obj:',$obj);
+	//qtranxf_dbg_log('qwc_useAdminTermLibJoin: $taxonomies:',$taxonomies);
+	//qtranxf_dbg_log('qwc_useAdminTermLibJoin: $args:',$args);
+	switch($pagenow){
+		case 'post.php':
+			if($taxonomies){
+				foreach($taxonomies as $t){
+					if(strpos($t,'pa_')===0)
+						return qtranxf_get_terms_joined($obj);
+				}
+			}
+		default: return $obj;// is done in qtranxf_useAdminTermLibJoin
+	}
+}
+//add_filter('get_term', 'qwc_useAdminTermLibJoin', 4, 2);
+add_filter('get_terms', 'qwc_useAdminTermLibJoin', 4, 3);
+*/
