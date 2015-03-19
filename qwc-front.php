@@ -3,6 +3,9 @@ if(!defined('ABSPATH'))exit;
 
 function qwc_add_filters_front() {
 
+	remove_filter('get_post_metadata', 'qtranxf_filter_postmeta', 5);
+	add_filter('get_post_metadata', 'qwc_filter_postmeta', 5, 4);
+
 	$use_filters = array(
 		/* do not exist any more */
 		//'option_woocommerce_email_from_name' => 10,
@@ -49,7 +52,7 @@ function qwc_add_filters_front() {
 		'woocommerce_order_subtotal_to_display' => 20,
 
 		/* four-argument filters */
-		'woocommerce_format_content' => 20,//will hopefully be in function wc_format_content in woocommerce/includes/wc-formatting-functions.php
+		'woocommerce_format_content' => 20,//function wc_format_content in woocommerce/includes/wc-formatting-functions.php
 
 		//not in front
 		//'woocommerce_email_get_option' => 0
@@ -88,3 +91,12 @@ function qwc_add_filters_front() {
 	*/
 }
 qwc_add_filters_front();
+
+function qwc_filter_postmeta($original_value, $object_id, $meta_key = '', $single = false){
+	//qtranxf_dbg_log_if($object_id==58,'qwc_filter_postmeta: $object_id='.$object_id.' $meta_key:',$meta_key);
+	switch($meta_key){
+		case '_product_attributes':
+			return $original_value;
+		default: return qtranxf_filter_postmeta($original_value, $object_id, $meta_key, $single);
+	}
+}

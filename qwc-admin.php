@@ -489,7 +489,7 @@ function qwc_email_get_option($value_translated, $wce /* WC_Email object*/, $val
 add_filter( 'woocommerce_email_get_option', 'qwc_email_get_option', 0, 4 );
 
 /**
- * Since 1.0.1
+ * @since 1.0.1
  */
 /*
 function qwc_attribute_label($label, $name){
