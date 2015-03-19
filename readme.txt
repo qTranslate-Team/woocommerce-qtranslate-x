@@ -52,7 +52,8 @@ No need for Upgrade Notice.
 
 ### 1.0.1 ###
 * Improvement: display of fields of class 'attribute_name' in `post.php` page.
-* Improvement: added filter 'woocommerce_format_content', subject to approval from Woocommerce - was already approved, wait for next release after 2.3.5.
+* Improvement: added filter 'woocommerce_format_content', subject to approval from Woocommerce - was already approved, wait for next release after 2.3.5 - done by now.
+* Fix: problem with custom attributes: [Issue #2](https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/2).
 
 ### 1.0 ###
 * Initial release
