@@ -100,3 +100,12 @@ function qwc_filter_postmeta($original_value, $object_id, $meta_key = '', $singl
 		default: return qtranxf_filter_postmeta($original_value, $object_id, $meta_key, $single);
 	}
 }
+
+// Store the current WordPress language along with the order, so we know later on which language the customer used while ordering
+add_action( 'save_post', function ( $post_id, $post, $update ) {
+	if ( 'shop_order' != $post->post_type || $update /* ignore updates */ ) {
+		return;
+	}
+	global $q_config;
+	add_post_meta( $post_id, '_user_language', $q_config['language'], true );
+}, 10, 3 );
