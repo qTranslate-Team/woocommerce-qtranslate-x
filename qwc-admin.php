@@ -1,6 +1,28 @@
 <?php
 if(!defined('ABSPATH'))exit;
 
+function qwc_add_filters_admin() {
+	$use_filters = array(
+		// Email subjects
+		'woocommerce_email_subject_customer_invoice_paid'    => 10,
+		'woocommerce_email_subject_customer_invoice'         => 10,
+		'woocommerce_email_subject_customer_completed_order' => 10,
+		'woocommerce_email_subject_low_stock'                => 10,
+		'woocommerce_email_subject_no_stock'                 => 10,
+		'woocommerce_email_subject_backorder'                => 10,
+
+		// Email headings
+		'woocommerce_email_heading_customer_invoice_paid'    => 10,
+		'woocommerce_email_heading_customer_invoice'         => 10,
+		'woocommerce_email_heading_customer_completed_order' => 10,
+	);
+
+	foreach ( $use_filters as $name => $priority ) {
+		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
+	}
+}
+qwc_add_filters_admin();
+
 add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
