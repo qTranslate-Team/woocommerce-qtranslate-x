@@ -551,7 +551,10 @@ function qwc_useAdminTermLibJoin($obj, $taxonomies=null, $args=null) {
 add_filter('get_terms', 'qwc_useAdminTermLibJoin', 4, 3);
 */
 
-// Append the language to the link for changing the order status, so that mails are sent in the language the customer used during the order process
+/**
+ * Append the language to the link for changing the order status, so that mails are sent in the language the customer used during the order process
+ * @since 1.1
+ */
 add_filter('admin_url', function($url) {
 	if ( strpos( $url, 'action=woocommerce_mark_order_status' ) ) {
 		$components = parse_url( $url );

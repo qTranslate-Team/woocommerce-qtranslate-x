@@ -101,7 +101,10 @@ function qwc_filter_postmeta($original_value, $object_id, $meta_key = '', $singl
 	}
 }
 
-// Store the current WordPress language along with the order, so we know later on which language the customer used while ordering
+/**
+ * Store the current WordPress language along with the order, so we know later on which language the customer used while ordering
+ * @since 1.1
+ */
 add_action( 'save_post', function ( $post_id, $post, $update ) {
 	if ( 'shop_order' != $post->post_type || $update /* ignore updates */ ) {
 		return;

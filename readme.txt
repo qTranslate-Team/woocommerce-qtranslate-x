@@ -4,7 +4,7 @@ Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
 Tested up to: 4.1.1
-Stable tag: 1.0.1
+Stable tag: 1.1
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,6 +49,9 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 No need for Upgrade Notice.
 
 ## Changelog ##
+
+### 1.1 ###
+* Improvement: complete order e-mails on admin side are now sent with the order's original language. [[Issue #3]( https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/3)]
 
 ### 1.0.1 ###
 * Improvement: display of fields of class 'attribute_name' in `post.php` page.
