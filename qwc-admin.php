@@ -1,6 +1,28 @@
 <?php
 if(!defined('ABSPATH'))exit;
 
+function qwc_add_filters_admin() {
+	$use_filters = array(
+		// Email subjects
+		'woocommerce_email_subject_customer_invoice_paid'    => 10,
+		'woocommerce_email_subject_customer_invoice'         => 10,
+		'woocommerce_email_subject_customer_completed_order' => 10,
+		'woocommerce_email_subject_low_stock'                => 10,
+		'woocommerce_email_subject_no_stock'                 => 10,
+		'woocommerce_email_subject_backorder'                => 10,
+
+		// Email headings
+		'woocommerce_email_heading_customer_invoice_paid'    => 10,
+		'woocommerce_email_heading_customer_invoice'         => 10,
+		'woocommerce_email_heading_customer_completed_order' => 10,
+	);
+
+	foreach ( $use_filters as $name => $priority ) {
+		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
+	}
+}
+qwc_add_filters_admin();
+
 add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
@@ -528,3 +550,21 @@ function qwc_useAdminTermLibJoin($obj, $taxonomies=null, $args=null) {
 //add_filter('get_term', 'qwc_useAdminTermLibJoin', 4, 2);
 add_filter('get_terms', 'qwc_useAdminTermLibJoin', 4, 3);
 */
+
+// Append the language to the link for changing the order status, so that mails are sent in the language the customer used during the order process
+add_filter('admin_url', function($url) {
+	if ( strpos( $url, 'action=woocommerce_mark_order_status' ) ) {
+		$components = parse_url( $url );
+		$params     = [ ];
+
+		parse_str( $components['query'], $params );
+
+		$order_id      = absint( $params['order_id'] );
+		$user_language = get_post_meta( $order_id, '_user_language', true );
+
+		if ( $user_language ) {
+			$url .= '&lang=' . $user_language;
+		}
+	}
+	return $url;
+});
