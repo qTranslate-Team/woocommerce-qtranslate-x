@@ -105,8 +105,8 @@ function qwc_filter_postmeta($original_value, $object_id, $meta_key = '', $singl
  * Store the current WordPress language along with the order, so we know later on which language the customer used while ordering
  * @since 1.1
  */
-add_action( 'woocommerce_process_shop_order_meta', 'save_post_qwc_store_language' );
-function save_post_qwc_store_language( $post_id ) {
+add_action( 'woocommerce_checkout_update_order_meta', 'save_post_qwc_store_language', 100 );
+function save_post_qwc_store_language ( $order_id ) {
 	global $q_config;
-	add_post_meta( $post_id, '_user_language', $q_config['language'], true );
+	add_post_meta( $order_id, '_user_language', $q_config['language'], true );
 }
