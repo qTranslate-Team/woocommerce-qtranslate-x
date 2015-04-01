@@ -589,3 +589,25 @@ function admin_url_qwc_append_language($url) {
 	}
 	return $url;
 }
+
+/**
+ * Append the language to ajax links on the order edit page, so that mails are sent in the language the customer used during the order process
+ * @since 1.1
+ */
+add_filter('admin_url', 'admin_url_qwc_append_language_edit_page' );
+function admin_url_qwc_append_language_edit_page( $url ) {
+	global $post;
+	if ( strpos( $url, 'admin-ajax.php' ) && isset( $_GET['action'] ) && isset( $_GET['post'] ) && $_GET['action'] == 'edit' ) {
+		$order_id = absint( $_GET['post'] );
+		$post     = get_post( $order_id );
+		if ( $post->post_type != 'shop_order' ) {
+			return $url;
+		}
+		$user_language = get_post_meta( $order_id, '_user_language', true );
+
+		if ( $user_language ) {
+			$url .= '?lang=' . $user_language;
+		}
+	}
+	return $url;
+}
