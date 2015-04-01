@@ -4,17 +4,34 @@ if(!defined('ABSPATH'))exit;
 function qwc_add_filters_admin() {
 	$use_filters = array(
 		// Email subjects
-		'woocommerce_email_subject_customer_invoice_paid'    => 10,
-		'woocommerce_email_subject_customer_invoice'         => 10,
-		'woocommerce_email_subject_customer_completed_order' => 10,
-		'woocommerce_email_subject_low_stock'                => 10,
-		'woocommerce_email_subject_no_stock'                 => 10,
-		'woocommerce_email_subject_backorder'                => 10,
+		'woocommerce_email_subject_customer_invoice_paid'     => 10,
+		'woocommerce_email_subject_customer_invoice'          => 10,
+		'woocommerce_email_subject_customer_completed_order'  => 10,
+		'woocommerce_email_subject_low_stock'                 => 10,
+		'woocommerce_email_subject_no_stock'                  => 10,
+		'woocommerce_email_subject_backorder'                 => 10,
+		'woocommerce_email_subject_customer_note'             => 10,
+		'woocommerce_email_subject_cancelled_order'           => 10,
+		'woocommerce_email_subject_customer_new_account'      => 10,
+		'woocommerce_email_subject_customer_processing_order' => 10,
+		'woocommerce_email_subject_customer_refunded_order'   => 10,
+		'woocommerce_email_subject_customer_reset_password'   => 10,
+		'woocommerce_email_subject_new_order'                 => 10,
 
 		// Email headings
-		'woocommerce_email_heading_customer_invoice_paid'    => 10,
-		'woocommerce_email_heading_customer_invoice'         => 10,
-		'woocommerce_email_heading_customer_completed_order' => 10,
+		'woocommerce_email_heading_customer_invoice_paid'     => 10,
+		'woocommerce_email_heading_customer_invoice'          => 10,
+		'woocommerce_email_heading_customer_completed_order'  => 10,
+		'woocommerce_email_heading_low_stock'                 => 10,
+		'woocommerce_email_heading_no_stock'                  => 10,
+		'woocommerce_email_heading_backorder'                 => 10,
+		'woocommerce_email_heading_customer_note'             => 10,
+		'woocommerce_email_heading_cancelled_order'           => 10,
+		'woocommerce_email_heading_customer_new_account'      => 10,
+		'woocommerce_email_heading_customer_processing_order' => 10,
+		'woocommerce_email_heading_customer_refunded_order'   => 10,
+		'woocommerce_email_heading_customer_reset_password'   => 10,
+		'woocommerce_email_heading_new_order'                 => 10,
 	);
 
 	foreach ( $use_filters as $name => $priority ) {
