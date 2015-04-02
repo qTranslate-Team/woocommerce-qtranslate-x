@@ -2,36 +2,41 @@
 if(!defined('ABSPATH'))exit;
 
 function qwc_add_filters_admin() {
+	//priority 20 is used because in case other plugins add some untranslated content on normal priority, it will still hopefully then get translated.
 	$use_filters = array(
 		// Email subjects
-		'woocommerce_email_subject_customer_invoice_paid'     => 10,
-		'woocommerce_email_subject_customer_invoice'          => 10,
-		'woocommerce_email_subject_customer_completed_order'  => 10,
-		'woocommerce_email_subject_low_stock'                 => 10,
-		'woocommerce_email_subject_no_stock'                  => 10,
-		'woocommerce_email_subject_backorder'                 => 10,
-		'woocommerce_email_subject_customer_note'             => 10,
-		'woocommerce_email_subject_cancelled_order'           => 10,
-		'woocommerce_email_subject_customer_new_account'      => 10,
-		'woocommerce_email_subject_customer_processing_order' => 10,
-		'woocommerce_email_subject_customer_refunded_order'   => 10,
-		'woocommerce_email_subject_customer_reset_password'   => 10,
-		'woocommerce_email_subject_new_order'                 => 10,
+		'woocommerce_email_subject_customer_invoice_paid'     => 20,
+		'woocommerce_email_subject_customer_invoice'          => 20,
+		'woocommerce_email_subject_customer_completed_order'  => 20,
+		'woocommerce_email_subject_low_stock'                 => 20,
+		'woocommerce_email_subject_no_stock'                  => 20,
+		'woocommerce_email_subject_backorder'                 => 20,
+		'woocommerce_email_subject_customer_note'             => 20,
+		'woocommerce_email_subject_cancelled_order'           => 20,
+		'woocommerce_email_subject_customer_new_account'      => 20,
+		'woocommerce_email_subject_customer_processing_order' => 20,
+		'woocommerce_email_subject_customer_refunded_order'   => 20,
+		'woocommerce_email_subject_customer_reset_password'   => 20,
+		'woocommerce_email_subject_new_order'                 => 20,
 
 		// Email headings
-		'woocommerce_email_heading_customer_invoice_paid'     => 10,
-		'woocommerce_email_heading_customer_invoice'          => 10,
-		'woocommerce_email_heading_customer_completed_order'  => 10,
-		'woocommerce_email_heading_low_stock'                 => 10,
-		'woocommerce_email_heading_no_stock'                  => 10,
-		'woocommerce_email_heading_backorder'                 => 10,
-		'woocommerce_email_heading_customer_note'             => 10,
-		'woocommerce_email_heading_cancelled_order'           => 10,
-		'woocommerce_email_heading_customer_new_account'      => 10,
-		'woocommerce_email_heading_customer_processing_order' => 10,
-		'woocommerce_email_heading_customer_refunded_order'   => 10,
-		'woocommerce_email_heading_customer_reset_password'   => 10,
-		'woocommerce_email_heading_new_order'                 => 10,
+		'woocommerce_email_heading_customer_invoice_paid'     => 20,
+		'woocommerce_email_heading_customer_invoice'          => 20,
+		'woocommerce_email_heading_customer_completed_order'  => 20,
+		'woocommerce_email_heading_low_stock'                 => 20,
+		'woocommerce_email_heading_no_stock'                  => 20,
+		'woocommerce_email_heading_backorder'                 => 20,
+		'woocommerce_email_heading_customer_note'             => 20,
+		'woocommerce_email_heading_cancelled_order'           => 20,
+		'woocommerce_email_heading_customer_new_account'      => 20,
+		'woocommerce_email_heading_customer_processing_order' => 20,
+		'woocommerce_email_heading_customer_refunded_order'   => 20,
+		'woocommerce_email_heading_customer_reset_password'   => 20,
+		'woocommerce_email_heading_new_order'                 => 20,
+
+		// Email body
+		'woocommerce_email_footer_text'                       => 20,
+	//'woocommerce_email_order_items_table'                 => 20,//see below
 	);
 
 	foreach ( $use_filters as $name => $priority ) {
@@ -58,6 +63,8 @@ function qwc_add_admin_page_config($page_configs)
 
 	//$fields[] = array( 'tag' => 'INPUT', 'class' => 'attribute_name' );//needs more work
 	//$fields[] = array( 'class' => 'attribute_name', 'encode' => 'display' );//catches some twice
+	$fields[] = array( 'class' => 'order_number', 'encode' => 'display' );
+	$fields[] = array( 'class' => 'display_meta', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'TD', 'class' => 'attribute_name', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'STRONG', 'class' => 'attribute_name', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'OPTION', 'encode' => 'display' );
@@ -572,8 +579,7 @@ add_filter('get_terms', 'qwc_useAdminTermLibJoin', 4, 3);
  * Append the language to the link for changing the order status, so that mails are sent in the language the customer used during the order process
  * @since 1.1
  */
-add_filter('admin_url', 'admin_url_qwc_append_language');
-function admin_url_qwc_append_language($url) {
+function qwc_admin_url_append_language($url) {
 	if ( strpos( $url, 'action=woocommerce_mark_order_status' ) ) {
 		$components = parse_url( $url );
 		$params     = array();
@@ -589,6 +595,7 @@ function admin_url_qwc_append_language($url) {
 	}
 	return $url;
 }
+add_filter('admin_url', 'qwc_admin_url_append_language');
 
 /**
  * Append the language to ajax links on the order edit page, so that mails are sent in the language the customer used during the order process
@@ -611,3 +618,68 @@ function admin_url_qwc_append_language_edit_page( $url ) {
 	}
 	return $url;
 }
+
+/**
+ * Option 'woocommerce_email_from_name' needs to be translated for e-mails, and needs to stay untranslated for settings.
+ * @since 1.1
+ */
+function qwc_admin_email_option($val) {
+	global $q_config;
+	global $pagenow;
+	//qtranxf_dbg_log('qwc_admin_email_option('.$val.'): $pagenow: ',$pagenow);
+	switch($pagenow){
+		case 'admin-ajax.php':
+		case 'post.php':
+			return qtranxf_use($q_config['language'], $val, false, false);
+		case 'admin.php'://for sure off
+		default: return $val;
+	}
+}
+add_filter('option_woocommerce_email_from_name', 'qwc_admin_email_option');
+//add_filter('option_woocommerce_email_from_address', 'qwc_admin_email_option');//not yet translatable
+
+/**
+ * This helps to use order's language on re-sent emails from post.php order edit page.
+ * @since 1.1
+ */
+function qwc_admin_email_translate($content, $order=null) {
+	global $q_config;
+	$lang = null;
+	if($order && isset($order->id)){
+		$lang = get_post_meta( $order->id, '_user_language', true );
+	}
+	if(!$lang) $lang = $q_config['language'];
+	return qtranxf_use($lang, $content, false, false);
+}
+add_filter('woocommerce_email_order_items_table', 'qwc_admin_email_translate', 20, 2);
+
+/**
+ * Called to process action when button 'Save Order' pressed in /wp-admin/post.php?post=xxx&action=edit
+ * Helps to partly change language in email sent, but not all, since some parts are already translated into admin language.
+ * @since 1.1
+ */
+function qwc_admin_before_resend_order_emails($order) {
+	if(!$order || !isset($order->id)) return;
+	$lang = get_post_meta( $order->id, '_user_language', true );
+	if(!$lang) return;
+	global $q_config;
+	$q_config['language'] = $lang;
+}
+add_action( 'woocommerce_before_resend_order_emails', 'qwc_admin_before_resend_order_emails' );
+
+/**
+ * Undo the effect of qwc_admin_before_resend_order_emails
+ * @since 1.1
+ */
+function qwc_admin_after_resend_order_emails($order) {
+	global $q_config;
+	$q_config['language'] = $q_config['url_info']['language'];
+}
+add_action( 'woocommerce_after_resend_order_email', 'qwc_admin_after_resend_order_emails' );
+
+/*
+Reminder for table handling
+Line 436: function qtranxf_languageColumnHeader($columns){
+Line 659: add_filter('manage_posts_columns', 'qtranxf_languageColumnHeader');
+Line 661: add_filter('manage_pages_columns', 'qtranxf_languageColumnHeader');
+*/
