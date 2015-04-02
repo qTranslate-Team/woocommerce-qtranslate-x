@@ -23,4 +23,3 @@ function qwc_init_language($url_info)
 	}
 }
 add_action('qtranslate_init_language','qwc_init_language');
-?>

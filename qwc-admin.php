@@ -95,7 +95,7 @@ function qwc_add_admin_page_config($page_configs)
 	$page_configs[] = $page_config;
 	}
 
-	{//edit-tags.php?taxonomy=pa_product-bg&post_type=product
+	{//edit-tags.php?taxonomy=xxx&post_type=product
 	$page_config = array();
 	$page_config['pages'] = array( 'edit-tags.php' => 'post_type=product');
 	//$page_config['anchors'] = array( 'col-container'  );
@@ -108,10 +108,14 @@ function qwc_add_admin_page_config($page_configs)
 	$f['fields'] = array();
 	$fields = &$f['fields']; // shorthand
 
+	//all input fields are ok from default qTranslate-X configuration
+
+	$fields[] = array( 'tag' => 'LABEL', 'container_class' => 'screen-options', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'H2', 'container_class' => 'wrap', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'H3', 'container_id' => 'col-left', 'encode' => 'display' );
 	$fields[] = array( 'id' => 'search-submit', 'attr' => 'value', 'encode' => 'display' );
 	$fields[] = array( 'id' => 'submit', 'attr' => 'value', 'encode' => 'display' );
+	$fields[] = array( 'id' => 'search-submit', 'attr' => 'value', 'encode' => 'display' );
 	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
@@ -601,8 +605,7 @@ add_filter('admin_url', 'qwc_admin_url_append_language');
  * Append the language to ajax links on the order edit page, so that mails are sent in the language the customer used during the order process
  * @since 1.1
  */
-add_filter('admin_url', 'admin_url_qwc_append_language_edit_page' );
-function admin_url_qwc_append_language_edit_page( $url ) {
+function qwc_admin_url_append_language_edit_page( $url ) {
 	global $post;
 	if ( strpos( $url, 'admin-ajax.php' ) && isset( $_GET['action'] ) && isset( $_GET['post'] ) && $_GET['action'] == 'edit' ) {
 		$order_id = absint( $_GET['post'] );
@@ -618,6 +621,7 @@ function admin_url_qwc_append_language_edit_page( $url ) {
 	}
 	return $url;
 }
+add_filter('admin_url', 'qwc_admin_url_append_language_edit_page' );
 
 /**
  * Option 'woocommerce_email_from_name' needs to be translated for e-mails, and needs to stay untranslated for settings.

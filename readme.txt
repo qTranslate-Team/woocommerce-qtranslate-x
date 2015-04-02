@@ -48,7 +48,9 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 No need for Upgrade Notice.
 
 ## Known Issues ##
-* Emails sent using the "Resend order emails" option in the admin area are not sent in the customer's language, but in the language currently used by the administrator. As a workaround, you can switch the admin language to the customer's language before resending a mail (which shouldn't happen too often).
+* Admin e-mails sent by pressing one of the buttons in column 'Actions' on order list page, `/wp-admin/edit.php?post_type=shop_order`, go in the original customer language used to submit the order. However, same e-mails sent using the "Resend order emails" option in order editor page, `/wp-admin/post.php?post=nnn&action=edit`, go in the mixed  language of admin and customer. As a workaround, you can switch the admin language to the customer language before resending an e-mail (which shouldn't happen too often).
+* Two buttons, "Add New XXX" and "Search XXX", on attribute editor page, `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product`, are displayed with raw multilingual text. This should be fixed with a later qTranslate-X version.
+* HTML header title on admin page `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product` displays raw multilingual values.
 
 ## Changelog ##
 
