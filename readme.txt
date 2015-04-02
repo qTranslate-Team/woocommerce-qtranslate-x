@@ -43,15 +43,18 @@ Plugin does not have any configuration options, simply activate it and it will e
 
 This plugin is not supported by the authors on the WordPress forum due to its simplicity. If you find a field which is not translatable, follow the pattern how it is done in the code for other fields, and make it translatable. Then submit a pull request at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x) to enable your changes for everyone else.
 
-
 ## Upgrade Notice ##
 
 No need for Upgrade Notice.
 
+## Known Issues ##
+* Emails sent using the "Resend order emails" option in the admin area are not sent in the customer's language, but in the language currently used by the administrator. As a workaround, you can switch the admin language to the customer's language before resending a mail (which shouldn't happen too often).
+
 ## Changelog ##
 
 ### 1.1 ###
-* Improvement: complete order e-mails on admin side are now sent with the order's original language. [[Issue #3]( https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/3)]
+* Improvement: during an order, the language currently used by the customer is stored along with the order meta data
+* Improvement: complete order e-mails on admin side are now sent with the order's original language (only for orders made after this update). [[Issue #3]( https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/3)]
 
 ### 1.0.1 ###
 * Improvement: display of fields of class 'attribute_name' in `post.php` page.
