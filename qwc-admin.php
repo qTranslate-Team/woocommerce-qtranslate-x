@@ -442,6 +442,29 @@ function qwc_add_admin_page_config($page_configs)
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
 	}
+	
+	{//tab=email&section=wc_email_customer_refunded_order
+	$page_config = array();
+	$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=email&section=wc_email_customer_refunded_order');
+	//$page_config['anchors'] = array( 'titlediv'  );
+
+	$page_config['forms'] = array();
+
+	$f = array();
+	$f['form'] = array( 'id' => 'mainform' );
+
+	$f['fields'] = array();
+	$fields = &$f['fields']; // shorthand
+
+	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_subject_full' );
+	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_subject_partial' );
+	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_subject_partial' );
+	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_heading_partial' );
+	//$fields[] = array( 'id' => '' );
+
+	$page_config['forms'][] = $f;
+	$page_configs[] = $page_config;
+	}	
 
 	{//tab=email&section=wc_email_customer_invoice
 	$page_config = array();
