@@ -54,6 +54,9 @@ No need for Upgrade Notice.
 
 ## Changelog ##
 
+### 1.2 ###
+* Improvement: Gateway names are translated on page `/wp-admin/admin.php?page=wc-settings&tab=checkout`.
+
 ### 1.1 ###
 * Improvement: during an order, the language currently used by the customer is stored along with the order meta data
 * Improvement: complete order e-mails on admin side are now sent with the order's original language (only for orders made after this update). [[Issue #3]( https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/3)]

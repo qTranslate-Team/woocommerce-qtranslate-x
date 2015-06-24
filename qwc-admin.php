@@ -45,7 +45,7 @@ function qwc_add_filters_admin() {
 }
 qwc_add_filters_admin();
 
-add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
+add_filter('i18n_admin_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
 	{//post.php //since 1.0.1
@@ -629,19 +629,14 @@ add_filter('admin_url', 'qwc_admin_url_append_language');
  * @since 1.1
  */
 function qwc_admin_url_append_language_edit_page( $url ) {
-	global $post;
-	if ( strpos( $url, 'admin-ajax.php' ) && isset( $_GET['action'] ) && isset( $_GET['post'] ) && $_GET['action'] == 'edit' ) {
-		$order_id = absint( $_GET['post'] );
-		$post     = get_post( $order_id );
-		if ( $post->post_type != 'shop_order' ) {
-			return $url;
-		}
-		$user_language = get_post_meta( $order_id, '_user_language', true );
+	if ( strpos( $url, 'admin-ajax.php' ) === false || !isset( $_GET['action'] ) || !isset( $_GET['post'] ) || $_GET['action'] != 'edit' ) return $url;
+	$order_id = absint( $_GET['post'] ); if(!$order_id) return $url;
+	$post = get_post( $order_id ); if(!$post) return $url;
+	if ( $post->post_type != 'shop_order' ) return $url;
 
-		if ( $user_language ) {
-			$url .= '?lang=' . $user_language;
-		}
-	}
+	$user_language = get_post_meta( $order_id, '_user_language', true );
+	if ( $user_language ) return $url . '?lang=' . $user_language;
+
 	return $url;
 }
 add_filter('admin_url', 'qwc_admin_url_append_language_edit_page' );
@@ -703,6 +698,18 @@ function qwc_admin_after_resend_order_emails($order) {
 	$q_config['language'] = $q_config['url_info']['language'];
 }
 add_action( 'woocommerce_after_resend_order_email', 'qwc_admin_after_resend_order_emails' );
+
+function qwc_admin_filters() {
+	global $pagenow;
+	switch($pagenow){
+		case 'admin.php':
+			if( isset($_SERVER['QUERY_STRING']) && strpos($_SERVER['QUERY_STRING'],'page=wc-settings&tab=checkout')!==false){
+				add_filter('woocommerce_gateway_title','qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage',5);
+			}
+		break;
+	}
+}
+qwc_admin_filters();
 
 /*
 Reminder for table handling
