@@ -56,6 +56,7 @@ No need for Upgrade Notice.
 
 ### 1.2 ###
 * Improvement: Gateway names are translated on page `/wp-admin/admin.php?page=wc-settings&tab=checkout`.
+* Improvement: page /wp-admin/admin.php?page=wc-settings&tab=email&section=wc_email_customer_refunded_order [Pull Request #17](https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues/17).
 
 ### 1.1 ###
 * Improvement: during an order, the language currently used by the customer is stored along with the order meta data

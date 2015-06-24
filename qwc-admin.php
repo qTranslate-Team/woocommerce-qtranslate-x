@@ -45,7 +45,8 @@ function qwc_add_filters_admin() {
 }
 qwc_add_filters_admin();
 
-add_filter('i18n_admin_config','qwc_add_admin_page_config');
+//add_filter('i18n_admin_config','qwc_add_admin_page_config');
+add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
 	{//post.php //since 1.0.1
