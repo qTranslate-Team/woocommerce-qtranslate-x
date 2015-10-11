@@ -38,11 +38,9 @@ Plugin does not have any configuration options, and no screenshots needed.
 ## Frequently Asked Questions ##
 
 ### How do I open a page with configuration options? ###
-
 Plugin does not have any configuration options, simply activate it and it will enable the translation of relevant fields for WooCommerce back- and front-end.
 
-### I submitted a question on support forum, but the authors did not respond?###
-
+### I submitted a question on support forum, but the authors did not respond? ###
 This plugin is not supported by the authors on the WordPress forum due to its simplicity. If you find a field which is not translatable, follow the pattern how it is done in the code for other fields, and make it translatable. Then submit a pull request at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x) to enable your changes for everyone else.
 
 ## Upgrade Notice ##
