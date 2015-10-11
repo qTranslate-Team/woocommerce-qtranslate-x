@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce & qTranslate-X
  * Plugin URI: https://wordpress.org/plugins/woocommerce-qtranslate-x
  * Description: Enables multilingual framework for plugin "WooCommerce".
- * Version: 1.2
+ * Version: 1.3
  * Author: qTranslate Team
  * Author URI: http://qtranslatexteam.wordpress.com/about
  * License: GPL2
@@ -12,7 +12,7 @@
  */
 if(!defined('ABSPATH'))exit;
 
-define('QWC_VERSION','1.2');
+define('QWC_VERSION','1.3');
 
 function qwc_init_language($url_info)
 {

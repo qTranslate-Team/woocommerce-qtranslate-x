@@ -50,29 +50,39 @@ add_filter('qtranslate_load_admin_page_config','qwc_add_admin_page_config');
 function qwc_add_admin_page_config($page_configs)
 {
 	{//post.php //since 1.0.1
-	$page_config = array();
-	$page_config['pages'] = array( 'post.php' => '');
-	$page_config['anchors'] = array( 'post', 'woocommerce-product-data', 'postexcerpt' );
+	if(!isset($page_configs['post'])) $page_configs['post'] = array();
+	$pgcfg = &$page_configs['post'];
+	//$page_config = array();
+	if(!isset($pgcfg['pages'])) $pgcfg['pages'] = array( 'post.php' => '', 'post-new.php' => '');
+	if(!isset($pgcfg['anchors'])) $pgcfg['anchors'] = array('post-body-content' => array('where'=>'first last'));
+	//$page_config['pages'] = array( 'post.php' => '');
+	//$page_config['anchors'] = array( 'post', 'woocommerce-product-data', 'postexcerpt' );
+	$pgcfg['anchors']['woocommerce-product-data'] = array( 'where' => 'before' );
 
-	$page_config['forms'] = array();
+	if(!isset($pgcfg['forms'])) $pgcfg['forms'] = array();
+	if(!isset($pgcfg['forms']['post'])) $pgcfg['forms']['post'] = array();
+	if(!isset($pgcfg['forms']['post']['fields'])) $pgcfg['forms']['post']['fields'] = array();
+	//$f = array();
+	//$f['form'] = array( 'id' => 'post' );
+	//$f['fields'] = array();
+	//$fields = &$f['fields']; // shorthand
+	$fields = &$pgcfg['forms']['post']['fields'];
 
-	$f = array();
-	$f['form'] = array( 'id' => 'post' );
+	//Custom Product Attributes need more work
+	//$fields['inp-attribute_name'] = array( 'jquery' => 'input.attribute_name' );
+	//$fields['inp-attribute_values'] = array( 'jquery' => 'textarea[name^=attribute_values]', 'encode' => 'byseparator', 'separator' => '/\\s*\\|\\s*/' );
 
-	$f['fields'] = array();
-	$fields = &$f['fields']; // shorthand
-
-	//$fields[] = array( 'tag' => 'INPUT', 'class' => 'attribute_name' );//needs more work
-	//$fields[] = array( 'class' => 'attribute_name', 'encode' => 'display' );//catches some twice
-	$fields[] = array( 'class' => 'order_number', 'encode' => 'display' );
-	$fields[] = array( 'class' => 'display_meta', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'TD', 'class' => 'attribute_name', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'STRONG', 'class' => 'attribute_name', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'OPTION', 'encode' => 'display' );
+	$fields['inp-variable_description'] = array( 'jquery' => 'textarea[name^=variable_description]' );
+	$fields['td-attribute_name'] = array( 'jquery' => 'td.attribute_name', 'encode' => 'display' );
+	$fields['strong-attribute_name'] = array( 'jquery' => 'strong.attribute_name', 'encode' => 'display' );
+	$fields['order_number'] = array( 'jquery' => '.order_number', 'encode' => 'display' );
+	$fields['display_meta'] = array( 'jquery' => '.display_meta', 'encode' => 'display' );
+	$fields['select-option'] = array( 'jquery' => 'select option', 'encode' => 'display' );
+	//$fields['attr_tax_optn'] = array( 'jquery' => 'select.attribute_taxonomy option', 'encode' => 'display' );
 	//$fields[] = array( 'class' => 'attribute_values', 'encode' => 'display' );
 
-	$page_config['forms'][] = $f;
-	$page_configs[] = $page_config;
+	//$page_config['forms'][] = $f;
+	//$page_configs[] = $page_config;
 	}
 
 	{//edit.php?post_type=product&page=product_attributes
@@ -88,11 +98,11 @@ function qwc_add_admin_page_config($page_configs)
 	$f['fields'] = array();
 	$fields = &$f['fields']; // shorthand
 
-	$fields[] = array( 'id' => 'attribute_label' );
-	//$fields[] = array( 'tag' => 'A', 'container_class' => 'attributes-table', 'encode' => 'display' );
-	$fields[] = array( 'tag' => 'TD', 'container_id' => 'col-right', 'encode' => 'display'  );
+	$fields['attribute_label'] = array();
+	$fields['Name'] = array( 'jquery' => 'td a', 'container_id' => 'col-right', 'encode' => 'display'  );
+	$fields['Terms'] = array( 'jquery' => 'td.attribute-terms', 'container_id' => 'col-right', 'encode' => 'display'  );
 
-	$page_config['forms'][] = $f;
+	$page_config['forms']['all'] = $f;
 	$page_configs[] = $page_config;
 	}
 
@@ -112,6 +122,7 @@ function qwc_add_admin_page_config($page_configs)
 	//all input fields are ok from default qTranslate-X configuration
 
 	$fields[] = array( 'tag' => 'LABEL', 'container_class' => 'screen-options', 'encode' => 'display' );
+	$fields['h1'] = array( 'jquery' => 'h1', 'container_class' => 'wrap', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'H2', 'container_class' => 'wrap', 'encode' => 'display' );
 	$fields[] = array( 'tag' => 'H3', 'container_id' => 'col-left', 'encode' => 'display' );
 	$fields[] = array( 'id' => 'search-submit', 'attr' => 'value', 'encode' => 'display' );
@@ -136,10 +147,9 @@ function qwc_add_admin_page_config($page_configs)
 	$f['fields'] = array();
 	$fields = &$f['fields']; // shorthand
 
-	$fields[] = array( 'class' => 'subsubsub', 'encode' => 'display' );
-	$fields[] = array( 'id' => 'woocommerce_tax_classes', 'encode' => 'byline' );
-	$fields[] = array( 'id' => 'woocommerce_price_display_suffix' );
-	//$fields[] = array( 'id' => '' );
+	$fields['subsubsub'] = array( 'jquery' => '.subsubsub', 'encode' => 'display' );
+	$fields['woocommerce_tax_classes'] = array( 'encode' => 'byline' );
+	$fields['woocommerce_price_display_suffix'] = array( );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -183,7 +193,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_cheque_title' );
 	$fields[] = array( 'id' => 'woocommerce_cheque_description' );
 	$fields[] = array( 'id' => 'woocommerce_cheque_instructions' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -205,7 +214,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_cod_title' );
 	$fields[] = array( 'id' => 'woocommerce_cod_description' );
 	$fields[] = array( 'id' => 'woocommerce_cod_instructions' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -227,7 +235,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_paypal_title' );
 	$fields[] = array( 'id' => 'woocommerce_paypal_description' );
 	$fields[] = array( 'id' => 'woocommerce_paypal_instructions' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -247,7 +254,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_free_shipping_title' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -267,7 +273,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_flat_rate_title' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -287,7 +292,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_international_delivery_title' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -307,7 +311,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_local_delivery_title' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -327,7 +330,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_local_pickup_title' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -349,11 +351,10 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_email_from_name' );
 	//$fields[] = array( 'id' => 'woocommerce_email_header_image' );
 	$fields[] = array( 'id' => 'woocommerce_email_footer_text' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
-	}// */
+	}
 
 	{//tab=email&section=wc_email_new_order
 	$page_config = array();
@@ -371,7 +372,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_new_order_recipient' );
 	$fields[] = array( 'id' => 'woocommerce_new_order_subject' );
 	$fields[] = array( 'id' => 'woocommerce_new_order_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -393,7 +393,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_cancelled_order_recipient' );
 	$fields[] = array( 'id' => 'woocommerce_cancelled_order_subject' );
 	$fields[] = array( 'id' => 'woocommerce_cancelled_order_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -415,7 +414,6 @@ function qwc_add_admin_page_config($page_configs)
 	//$fields[] = array( 'id' => 'woocommerce_customer_processing_order_recipient' );
 	$fields[] = array( 'id' => 'woocommerce_customer_processing_order_subject' );
 	$fields[] = array( 'id' => 'woocommerce_customer_processing_order_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -438,7 +436,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_customer_completed_order_heading' );
 	$fields[] = array( 'id' => 'woocommerce_customer_completed_order_subject_downloadable' );
 	$fields[] = array( 'id' => 'woocommerce_customer_completed_order_heading_downloadable' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -461,7 +458,7 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_subject_partial' );
 	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_subject_partial' );
 	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_heading_partial' );
-	//$fields[] = array( 'id' => '' );
+	$fields[] = array( 'id' => 'woocommerce_customer_refunded_order_heading_full' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -484,7 +481,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields[] = array( 'id' => 'woocommerce_customer_invoice_heading' );
 	$fields[] = array( 'id' => 'woocommerce_customer_invoice_subject_paid' );
 	$fields[] = array( 'id' => 'woocommerce_customer_invoice_heading_paid' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -505,7 +501,6 @@ function qwc_add_admin_page_config($page_configs)
 
 	$fields[] = array( 'id' => 'woocommerce_customer_note_subject' );
 	$fields[] = array( 'id' => 'woocommerce_customer_note_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -526,7 +521,6 @@ function qwc_add_admin_page_config($page_configs)
 
 	$fields[] = array( 'id' => 'woocommerce_customer_reset_password_subject' );
 	$fields[] = array( 'id' => 'woocommerce_customer_reset_password_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
@@ -547,7 +541,6 @@ function qwc_add_admin_page_config($page_configs)
 
 	$fields[] = array( 'id' => 'woocommerce_customer_new_account_subject' );
 	$fields[] = array( 'id' => 'woocommerce_customer_new_account_heading' );
-	//$fields[] = array( 'id' => '' );
 
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;

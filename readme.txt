@@ -4,7 +4,7 @@ Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
 Tested up to: 4.1.1
-Stable tag: 1.1
+Stable tag: 1.3
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -13,13 +13,15 @@ Enables multilingual framework for plugin "WooCommerce - excelling eCommerce".
 
 ## Description ##
 
-This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework (version 3.1 or later) for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/) (version 2.3.5 or later).
+This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework (version 3.4.6.1 or later) for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/) (version 2.3.5 or later).
 
 After the activation, depending on your theme, you may need to do the following additional step to finalize the configuration:
 
 * In all customizable template files, replace calls to `bloginfo('xxx')` with `bloginfo('xxx','display')`, if you have any. You do not have to do this, if title of your blog appears correctly everywhere you can see it (especially in emails sent), or if you do not localize the name of your blog.
 
 This plugin is not supported by the authors on the WordPress forum due to its simplicity. If you find a field which is not translatable, follow the pattern how it is done in the code for other fields and make it translatable. Then submit a pull request at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x) to enable your changes for everyone else.
+
+Is is a very good idea to review "[Known Issues](https://wordpress.org/plugins/woocommerce-qtranslate-x/other_notes/)" in order to have right expectations.
 
 ## Installation ##
 
@@ -48,11 +50,19 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 No need for Upgrade Notice.
 
 ## Known Issues ##
+* Product Attribute may need to be re-saved (page `/wp-admin/edit.php?post_type=product&page=product_attributes&edit=xxx`) if they were created before installing this plugin: [WP Topic](https://wordpress.org/support/topic/how-to-translate-attribute-items-in-woocommerce?replies=1).
+* Custom Product Attributes (which are entered directly on product edit page `/wp-admin/post.php?post=xxx&action=edit`) have to be entered in raw multilingual text, with values like `[:en]EN Val1[:de]DE Val1[:] | [:en]EN Val2[:de]DE Val2[:]`, leaving separator '|' outside of language tags. This piece has not yet been integrated on admin side, but once all is entered in raw multilingual format, it should work well at front end. Delete and freshly re-create an attribte under this plugin, if it was created before installing this plugin and it misbehaves.
 * Admin e-mails sent by pressing one of the buttons in column 'Actions' on order list page, `/wp-admin/edit.php?post_type=shop_order`, go in the original customer language used to submit the order. However, same e-mails sent using the "Resend order emails" option in order editor page, `/wp-admin/post.php?post=nnn&action=edit`, go in the mixed  language of admin and customer. As a workaround, you can switch the admin language to the customer language before resending an e-mail (which shouldn't happen too often).
-* Two buttons, "Add New XXX" and "Search XXX", on attribute editor page, `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product`, are displayed with raw multilingual text. This should be fixed with a later qTranslate-X version.
-* HTML header title on admin page `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product` displays raw multilingual values.
+qTranslate-X version.
+* Use raw multilingual format with language tags `[:en]...[:]` or `{:en}...{:}` in any regualar field, which you wish to be multilingual. It most likely will be translated at front end appropriately. Report the field at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues) if you found one that does not get translated at front end. Already known fileds: all fields on "Variable Product/Variations" section.
+
+* [Resolved in ver. 1.2] HTML header title on admin page `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product` displays raw multilingual values.
+* [Resolved in ver. 1.2] Two buttons, "Add New XXX" and "Search XXX", on attribute editor page, `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product`, are displayed with raw multilingual text. This should be fixed with a later 
 
 ## Changelog ##
+
+### 1.3 ###
+* Fix: compatibility with the latest qTranslate-X 3.4.6.1 or later.
 
 ### 1.2 ###
 * Improvement: Gateway names are translated on page `/wp-admin/admin.php?page=wc-settings&tab=checkout`.
