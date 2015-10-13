@@ -45,7 +45,8 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 
 ## Upgrade Notice ##
 
-No need for Upgrade Notice.
+### 1.3 ###
+This version recovers compatibility with the latest qTranslate-X 3.4.6.2.
 
 ## Known Issues ##
 * Product Attribute may need to be re-saved (page `/wp-admin/edit.php?post_type=product&page=product_attributes&edit=xxx`) if they were created before installing this plugin: [WP Topic](https://wordpress.org/support/topic/how-to-translate-attribute-items-in-woocommerce?replies=1).
@@ -61,6 +62,7 @@ No need for Upgrade Notice.
 ## Changelog ##
 
 ### 1.3 ###
+* Improvement: A copule of new multilingual fields.
 * Fix: compatibility with the latest qTranslate-X 3.4.6.1 or later.
 
 ### 1.2 ###
