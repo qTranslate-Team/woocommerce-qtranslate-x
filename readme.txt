@@ -3,7 +3,7 @@ Developed by: qTranslate Team
 Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
-Tested up to: 4.1.1
+Tested up to: 4.4
 Stable tag: 1.3
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
