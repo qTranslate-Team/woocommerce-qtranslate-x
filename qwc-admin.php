@@ -702,13 +702,15 @@ function qwc_admin_filters() {
 				add_filter('woocommerce_gateway_title','qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage',5);
 			}
 		break;
+		case 'edit.php':{
+			//translate column 'product_cat'
+			if( isset($_SERVER['QUERY_STRING'])
+				&& strpos($_SERVER['QUERY_STRING'],'post_type=product') !== false
+			){
+				add_filter('get_term', 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', 6);
+			}
+		} break;
 	}
 }
 qwc_admin_filters();
 
-/*
-Reminder for table handling
-Line 436: function qtranxf_languageColumnHeader($columns){
-Line 659: add_filter('manage_posts_columns', 'qtranxf_languageColumnHeader');
-Line 661: add_filter('manage_pages_columns', 'qtranxf_languageColumnHeader');
-*/

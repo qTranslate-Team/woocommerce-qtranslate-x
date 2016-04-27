@@ -65,6 +65,7 @@ This version recovers compatibility with the latest qTranslate-X 3.4.6.2.
 
 ### 1.3.1 ###
 * Improvement: Field "Purchase Note" on "Advanced" tab of Product editting page is now multilingual.
+* Improvement: Translation of column "Category" in product list on page '/wp-admin/edit.php?post_type=product'.
 
 ### 1.3 ###
 * Improvement: A copule of new multilingual fields.
