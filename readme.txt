@@ -3,8 +3,8 @@ Developed by: qTranslate Team
 Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
-Tested up to: 4.4
-Stable tag: 1.3
+Tested up to: 4.5
+Stable tag: 1.3.1
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
 License URI: http://www.gnu.org/licenses/gpl-3.0.html
@@ -49,17 +49,22 @@ This plugin is not supported by the authors on the WordPress forum due to its si
 This version recovers compatibility with the latest qTranslate-X 3.4.6.2.
 
 ## Known Issues ##
+* Woocommerce caches mini cart texts already translated and then it does not change on language switching during the same session until another product is added to the cart, which causes mini cart to get re-cached. Usually, it is not a problem, since users normally do not switch language during one buying session. However, it may appear very confusing during the testing.
 * Product Attribute may need to be re-saved (page `/wp-admin/edit.php?post_type=product&page=product_attributes&edit=xxx`) if they were created before installing this plugin: [WP Topic](https://wordpress.org/support/topic/how-to-translate-attribute-items-in-woocommerce?replies=1).
 * Product Attribute values are shown in admin language and do not respond to LSB. This is a convinience feature, which needs more work to be intergarated, but otherwise it is functional and usable.
-* Custom Product Attributes (which are entered directly on product edit page `/wp-admin/post.php?post=xxx&action=edit`) have to be entered in raw multilingual text, with values like `[:en]EN Val1[:de]DE Val1[:] | [:en]EN Val2[:de]DE Val2[:]`, leaving separator '|' outside of language tags. This piece has not yet been integrated on admin side, but once all is entered in raw multilingual format, it should work well at front end. Delete and freshly re-create an attribte under this plugin, if it was created before installing this plugin and it misbehaves.
+* Custom Product Attributes (which are entered directly on product edit page `/wp-admin/post.php?post=xxx&action=edit`) have to be entered in raw multilingual text, with values like `[:en]EN Val1[:de]DE Val1[:] | [:en]EN Val2[:de]DE Val2[:]`, leaving separator '|' outside of language tags. This piece has not yet been integrated on admin side, but once all is entered in raw multilingual format, it should work well at front end. Delete and freshly re-create an attribute under this plugin, if it was created before installing this plugin and it misbehaves.
 * Admin e-mails sent by pressing one of the buttons in column 'Actions' on order list page, `/wp-admin/edit.php?post_type=shop_order`, go in the original customer language used to submit the order. However, same e-mails sent using the "Resend order emails" option in order editor page, `/wp-admin/post.php?post=nnn&action=edit`, go in the mixed  language of admin and customer. As a workaround, you can switch the admin language to the customer language before resending an e-mail (which shouldn't happen too often).
 * Use raw multilingual format with language tags `[:en]...[:]` or `{:en}...{:}` in any regualar field, which you wish to be multilingual. It most likely will be translated at front end appropriately. Report the field at [GitHub](https://github.com/qTranslate-Team/woocommerce-qtranslate-x/issues) if you found one that does not get translated at front end. Already known fileds: all fields on "Variable Product/Variations" section.
+* When switching the language, the cart won't change language unless go to product add to cart. This is hard to integrate without changing the code of Woocommerce, since they cache cart properties already translated for the sake of performance. Normally this is not a problem, since users rarely change language in the middle of the order.
 
 ## Former Known Issues ##
 * [Resolved in ver. 1.2] HTML header title on admin page `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product` displays raw multilingual values.
 * [Resolved in ver. 1.2] Two buttons, "Add New XXX" and "Search XXX", on attribute editor page, `/wp-admin/edit-tags.php?taxonomy=xxx&post_type=product`, are displayed with raw multilingual text. This should be fixed with a later 
 
 ## Changelog ##
+
+### 1.3.1 ###
+* Improvement: Field "Purchase Note" on "Advanced" tab of Product editting page is now multilingual.
 
 ### 1.3 ###
 * Improvement: A copule of new multilingual fields.

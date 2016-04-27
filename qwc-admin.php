@@ -73,6 +73,7 @@ function qwc_add_admin_page_config($page_configs)
 	//$fields['inp-attribute_values'] = array( 'jquery' => 'textarea[name^=attribute_values]', 'encode' => 'byseparator', 'separator' => '/\\s*\\|\\s*/' );
 
 	$fields['inp-variable_description'] = array( 'jquery' => 'textarea[name^=variable_description]' );
+	$fields['_purchase_note'] = array();
 	$fields['td-attribute_name'] = array( 'jquery' => 'td.attribute_name', 'encode' => 'display' );
 	$fields['strong-attribute_name'] = array( 'jquery' => 'strong.attribute_name', 'encode' => 'display' );
 	$fields['order_number'] = array( 'jquery' => '.order_number', 'encode' => 'display' );
