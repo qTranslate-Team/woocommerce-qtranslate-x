@@ -62,6 +62,7 @@ function qwc_add_filters_front() {
 		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
 	}
 
+	add_filter( 'woocommerce_paypal_args', 'qwc_paypal_args' );
 	add_filter( 'woocommerce_get_product_attributes', 'qwc_get_product_attributes', 5 );
 	//no need add_filter( 'woocommerce_product_default_attributes', 'qwc_product_default_attributes', 5 );
 
@@ -124,4 +125,11 @@ function qwc_get_product_attributes($attributes){
 		$attributes[$key]['value'] = qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage($attribute['value']);
 	}
 	return $attributes;
+}
+
+function qwc_paypal_args($args)
+{
+	//if(!isset($args['country']))
+	$args['locale.x'] = get_locale();
+	return $args;
 }

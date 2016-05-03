@@ -52,6 +52,7 @@ It is also a good idea to review the list of [Known Issues](https://qtranslatext
 ## Changelog ##
 
 ### 1.3.1 ###
+* Improvement: PayPal site to depend on active language locale if no billing country field is available.
 * Improvement: Field "Purchase Note" on "Advanced" tab of Product editting page is now multilingual.
 * Improvement: Translation of column "Category" in product list on page '/wp-admin/edit.php?post_type=product'.
 * Fix: Variable product variations at front-end [Issue #277](https://github.com/qTranslate-Team/qtranslate-x/issues/277).
