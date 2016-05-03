@@ -130,6 +130,7 @@ function qwc_get_product_attributes($attributes){
 function qwc_paypal_args($args)
 {
 	//if(!isset($args['country']))
-	$args['locale.x'] = get_locale();
+	$args['lc'] = get_locale();
+	//unset($args['country']);
 	return $args;
 }
