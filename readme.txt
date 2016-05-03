@@ -13,7 +13,7 @@ Enables multilingual framework for plugin "WooCommerce - excelling eCommerce".
 
 ## Description ##
 
-This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework (version 3.4.6.1 or later) for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/) (version 2.3.5 or later).
+This plugin enables [qTranslate-X](https://wordpress.org/plugins/qtranslate-x/) multilingual framework (version 3.4.6.1 or later) for WordPress plugin [WooCommerce - excelling eCommerce](https://wordpress.org/plugins/woocommerce/) (version 2.4 or later).
 
 After the activation, depending on your theme, you may need to do the following additional step to finalize the configuration:
 
@@ -54,6 +54,7 @@ It is also a good idea to review the list of [Known Issues](https://qtranslatext
 ### 1.3.1 ###
 * Improvement: Field "Purchase Note" on "Advanced" tab of Product editting page is now multilingual.
 * Improvement: Translation of column "Category" in product list on page '/wp-admin/edit.php?post_type=product'.
+* Fix: Variable product variations at front-end [Issue #277](https://github.com/qTranslate-Team/qtranslate-x/issues/277).
 
 ### 1.3 ###
 * Improvement: A copule of new multilingual fields.

@@ -62,6 +62,9 @@ function qwc_add_filters_front() {
 		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
 	}
 
+	add_filter( 'woocommerce_get_product_attributes', 'qwc_get_product_attributes', 5 );
+	//no need add_filter( 'woocommerce_product_default_attributes', 'qwc_product_default_attributes', 5 );
+
 	//below do not seem to need
 
 	//foreach ( $url_filters as $name => $priority ) {
@@ -112,4 +115,13 @@ add_action( 'woocommerce_checkout_update_order_meta', 'save_post_qwc_store_langu
 function save_post_qwc_store_language ( $order_id ) {
 	global $q_config;
 	add_post_meta( $order_id, '_user_language', $q_config['language'], true );
+}
+
+function qwc_get_product_attributes($attributes){
+	//only 'value' needs to be translated at front end
+	foreach ( $attributes as $key => $attribute ) {
+		if(!isset($attribute['value'])) continue;
+		$attributes[$key]['value'] = qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage($attribute['value']);
+	}
+	return $attributes;
 }
