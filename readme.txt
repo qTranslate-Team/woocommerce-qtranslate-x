@@ -4,7 +4,7 @@ Contributors: johnclause, michelweimerskirch
 Tags: multilingual, language, bilingual, i18n, l10n, multilanguage, translation, WooCommerce
 Requires at least: 4.0
 Tested up to: 4.5
-Stable tag: 1.3.1
+Stable tag: 1.4
 License: GPLv3 or later
 Donate link: https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=QEXEK3HX8AR6U
 License URI: http://www.gnu.org/licenses/gpl-3.0.html

@@ -94,7 +94,6 @@ function qwc_add_filters_front() {
 	} );
 	*/
 }
-qwc_add_filters_front();
 
 function qwc_filter_postmeta($original_value, $object_id, $meta_key = '', $single = false){
 	//qtranxf_dbg_log_if($object_id==58,'qwc_filter_postmeta: $object_id='.$object_id.' $meta_key:',$meta_key);
@@ -133,4 +132,31 @@ function qwc_paypal_args($args)
 	$args['lc'] = get_locale();
 	//unset($args['country']);
 	return $args;
+}
+
+if(defined('DOING_CRON')){
+
+function qwc_deliver_webhook_async($webhook_id, $arg)
+{
+	//qtranxf_dbg_log('qwc_deliver_webhook_async: $webhook_id=',$webhook_id);
+
+	$page_configs = qtranxf_get_front_page_config();
+	//qtranxf_dbg_log('$page_configs: ', $page_configs);
+	if(!empty($page_configs['']['filters'])){
+		qtranxf_remove_filters($page_configs['']['filters']);
+	}
+
+	remove_filter('get_post_metadata', 'qtranxf_filter_postmeta', 5);
+	remove_filter('the_posts', 'qtranxf_postsFilter', 5);
+	remove_action('pre_get_posts', 'qtranxf_pre_get_posts', 99);
+
+	remove_filter('get_term', 'qtranxf_useTermLib', 0);
+	remove_filter('get_terms', 'qtranxf_useTermLib', 0);
+	//add_filter('get_term', 'qtranxf_useAdminTermLibJoin', 20);
+	//add_filter('get_terms', 'qtranxf_useAdminTermLibJoin', 20);
+}
+add_action( 'woocommerce_deliver_webhook_async', 'qwc_deliver_webhook_async', 5, 2 );
+
+}else{
+	qwc_add_filters_front();
 }
