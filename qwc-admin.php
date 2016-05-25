@@ -3,44 +3,43 @@ if(!defined('ABSPATH'))exit;
 
 function qwc_add_filters_admin() {
 	//priority 20 is used because in case other plugins add some untranslated content on normal priority, it will still hopefully then get translated.
+	$use_filters = array(
+		// Email subjects
+		'woocommerce_email_subject_customer_invoice_paid'     => 20,
+		'woocommerce_email_subject_customer_invoice'          => 20,
+		'woocommerce_email_subject_customer_completed_order'  => 20,
+		'woocommerce_email_subject_low_stock'                 => 20,
+		'woocommerce_email_subject_no_stock'                  => 20,
+		'woocommerce_email_subject_backorder'                 => 20,
+		'woocommerce_email_subject_customer_note'             => 20,
+		'woocommerce_email_subject_cancelled_order'           => 20,
+		'woocommerce_email_subject_customer_new_account'      => 20,
+		'woocommerce_email_subject_customer_processing_order' => 20,
+		'woocommerce_email_subject_customer_refunded_order'   => 20,
+		'woocommerce_email_subject_customer_reset_password'   => 20,
+		'woocommerce_email_subject_new_order'                 => 20,
 
-	$email_ids = array(
-	//recipient, subject, content
-		'low_stock' => 20,
-		'no_stock' => 20,
-		'backorder' => 20,
-	//recipient, subject, heading
-		'new_order' => 20,
-		'cancelled_order' => 20,
-		'failed_order' => 20,
-		'customer_processing_order' => 20,
-		'customer_completed_order' => 20,
-		'customer_refunded_order' => 20,
-		'customer_partially_refunded_order' => 20,
-		'customer_invoice' => 20,
-		'customer_invoice_paid' => 20,
-		'customer_note' => 20,
-		'customer_reset_password' => 20,
-		'customer_new_account' => 20
+		// Email headings
+		'woocommerce_email_heading_customer_invoice_paid'     => 20,
+		'woocommerce_email_heading_customer_invoice'          => 20,
+		'woocommerce_email_heading_customer_completed_order'  => 20,
+		'woocommerce_email_heading_low_stock'                 => 20,
+		'woocommerce_email_heading_no_stock'                  => 20,
+		'woocommerce_email_heading_backorder'                 => 20,
+		'woocommerce_email_heading_customer_note'             => 20,
+		'woocommerce_email_heading_cancelled_order'           => 20,
+		'woocommerce_email_heading_customer_new_account'      => 20,
+		'woocommerce_email_heading_customer_processing_order' => 20,
+		'woocommerce_email_heading_customer_refunded_order'   => 20,
+		'woocommerce_email_heading_customer_reset_password'   => 20,
+		'woocommerce_email_heading_new_order'                 => 20,
+
+		// Email body
+		'woocommerce_email_footer_text'                       => 20,
+	//'woocommerce_email_order_items_table'                 => 20,//see below
 	);
 
-	//not  all combinations are in use, but it is ok, they may be added in the future.
-	foreach ( $email_ids as $name => $priority ) {
-		add_filter( 'woocommerce_email_recipient_'.$name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
-		add_filter( 'woocommerce_email_subject_'.$name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
-		add_filter( 'woocommerce_email_heading_'.$name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
-		add_filter( 'woocommerce_email_content_'.$name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
-	}
-
-	$email_common = array(
-	//'woocommerce_email_title' => 20,
-		'woocommerce_email_from_name' => 20,
-		'woocommerce_email_from_address' => 20,
-		'woocommerce_email_footer_text' => 20
-	//'woocommerce_email_order_items_table' => 20,//see below
-	);
-
-	foreach ( $email_common as $name => $priority ) {
+	foreach ( $use_filters as $name => $priority ) {
 		add_filter( $name, 'qtranxf_useCurrentLanguageIfNotFoundUseDefaultLanguage', $priority );
 	}
 }
@@ -351,7 +350,6 @@ function qwc_add_admin_page_config($page_configs)
 	$fields = &$f['fields']; // shorthand
 
 	$fields[] = array( 'id' => 'woocommerce_email_from_name' );
-	//$fields[] = array( 'id' => 'woocommerce_email_from_address' );//?
 	//$fields[] = array( 'id' => 'woocommerce_email_header_image' );
 	$fields[] = array( 'id' => 'woocommerce_email_footer_text' );
 
@@ -359,25 +357,6 @@ function qwc_add_admin_page_config($page_configs)
 	$page_configs[] = $page_config;
 	}
 
-	{//tab=email&section=XXX
-		$page_config = array();
-		$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=email&section=wc_email');
-		//$page_config['anchors'] = array( 'titlediv'  );
-
-		$page_config['forms'] = array();
-
-		$f = array();
-		$f['form'] = array( 'id' => 'mainform' );
-
-		$f['fields'] = array();
-		$fields = &$f['fields']; // shorthand
-
-		$fields[] = array( 'jquery' => 'input.input-text[type=text][name^=woocommerce_]' );
-
-		$page_config['forms'][] = $f;
-		$page_configs[] = $page_config;
-	}
-/*
 	{//tab=email&section=wc_email_new_order
 	$page_config = array();
 	$page_config['pages'] = array( 'admin.php' => 'page=wc-settings&tab=email&section=wc_email_new_order');
@@ -567,7 +546,7 @@ function qwc_add_admin_page_config($page_configs)
 	$page_config['forms'][] = $f;
 	$page_configs[] = $page_config;
 	}
-*/
+
 	return $page_configs;
 }
 
@@ -734,3 +713,4 @@ function qwc_admin_filters() {
 	}
 }
 qwc_admin_filters();
+
