@@ -134,6 +134,10 @@ function qwc_paypal_args($args)
 	return $args;
 }
 
+/**
+ * Dealing with webhooks, which should always send information in Raw ML format
+ * @since 1.4
+ */
 if(defined('DOING_CRON')){
 
 function qwc_deliver_webhook_async($webhook_id, $arg)
@@ -160,3 +164,77 @@ add_action( 'woocommerce_deliver_webhook_async', 'qwc_deliver_webhook_async', 5,
 }else{
 	qwc_add_filters_front();
 }
+
+/**
+ * Dealing with mini-cart cache in internal browser storage.
+ * @param array $cart wc variable holding contents of the cart without language information.
+ * @return string cart hash with language information
+ * @since 1.4
+ */
+function qwc_get_cart_hash($cart)
+{
+	$lang = qtranxf_getLanguage();
+	$hash = md5(json_encode($cart).$lang); 
+	return $hash;
+}
+
+/**
+ * Dealing with mini-cart cache in internal browser storage.
+ * Sets 'woocommerce_cart_hash' cookie.
+ * @param array $cart wc variable holding contents of the cart without language information.
+ * @since 1.4
+ */
+function qwc_set_cookies_cart_hash($cart)
+{
+	$hash = qwc_get_cart_hash($cart); 
+	wc_setcookie( 'woocommerce_cart_hash', $hash );
+}
+
+/**
+ * Dealing with mini-cart cache in internal browser storage.
+ * Response to action 'woocommerce_cart_loaded_from_session'.
+ * @param WC_Cart $wc_cart wc object without language information.
+ * @since 1.4
+ */
+function qwc_cart_loaded_from_session($wc_cart)
+{
+	if(headers_sent())
+		return;
+	$cart = $wc_cart->get_cart_for_session();
+	qwc_set_cookies_cart_hash($cart);
+}
+add_action( 'woocommerce_cart_loaded_from_session', 'qwc_cart_loaded_from_session', 5 );
+
+/**
+ * Dealing with mini-cart cache in internal browser storage.
+ * Response to action 'woocommerce_set_cart_cookies', which overwrites the default WC cart hash and cookies.
+ * @param bool $set is true if cookies need to be set, otherwse they are unset in calling function.
+ * @since 1.4
+ */
+function qwc_set_cart_cookies($set)
+{
+	if($set){
+		$wc = WC();
+		$wc_cart = $wc->cart;
+		$cart = $wc_cart->get_cart_for_session();
+		qwc_set_cookies_cart_hash($cart);
+	}
+}
+add_action( 'woocommerce_set_cart_cookies', 'qwc_set_cart_cookies' );
+
+/**
+ * Dealing with mini-cart cache in internal browser storage.
+ * Response to action 'woocommerce_add_to_cart_hash', which overwrites the default WC cart hash and cookies.
+ * @param string $hash default WC hash.
+ * @param array $cart wc variable holding contents of the cart without language information.
+ * @since 1.4
+ */
+function qwc_add_to_cart_hash($hash,$cart)
+{
+	$hash = qwc_get_cart_hash($cart); 
+	if(!headers_sent()){
+		wc_setcookie( 'woocommerce_cart_hash', $hash );
+	}
+	return $hash;
+}
+add_filter( 'woocommerce_add_to_cart_hash', 'qwc_add_to_cart_hash', 5, 2 );
