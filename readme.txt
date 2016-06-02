@@ -52,7 +52,7 @@ It is also a good idea to review the list of [Known Issues](https://qtranslatext
 ## Changelog ##
 
 ### 1.4 ###
-* Improvement: Mini-Cart cached in browser now changes the display language, when user changes the active language. Other browser's tabs will now also show mini-cart in new language regardless to what language they were originally displayed. Woocommerce shares single mini-cart object betweeen all the tabs of browser in the same session. That is why mini-cart will be shown the same on all tabs in the last language chosen by user.
+* Improvement: Mini-Cart cached in browser now changes the display language, when user changes the active language. Other browser's tabs will now also show mini-cart in new language regardless to what language they were originally displayed. Woocommerce shares single mini-cart object between all the tabs of browser in the same session. That is why mini-cart will be shown the same on all tabs in the last language chosen by user.
 * Improvement: Filters are disabled if DOING_CRON is defined. This enables Woocommerce API to send information in raw ML format. 
 * Improvement: PayPal site to depend on active language locale if no billing country field is available.
 * Improvement: ML fields on e-mail admin pages are now configured with "jquery" single entry.
